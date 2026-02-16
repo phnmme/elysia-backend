@@ -7,7 +7,14 @@ import { studentsGuestController } from "./api/v1/students/guest/students.guest.
 import { profileAuthorizedController } from "./api/v1/profile/authorized/profile.authorized.controller";
 
 const app = new Elysia()
-  .use(cors())
+  .use(
+    cors({
+      origin: ["https://website-kmutnb-1n4c.vercel.app"],
+      methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+      allowedHeaders: ["Content-Type", "Authorization"],
+      credentials: true,
+    })
+  )
   .use(swagger())
   .use(authGuestController)
   .use(authAuthorizedController)
