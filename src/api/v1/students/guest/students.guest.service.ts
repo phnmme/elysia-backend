@@ -102,7 +102,6 @@ export class studentsGuestService {
         entryYear: true,
         gradYear: true,
         jobField: true,
-        jobPosition: true,
         userId: true,
         updatedAt: true,
         user: {

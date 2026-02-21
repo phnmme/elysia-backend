@@ -117,6 +117,7 @@ export class AuthGuestService {
             phoneNumber,
             department: "การจัดการเทคโนโลยีสารการผลิตและสารสนเทศ",
             entryYear: entryYear,
+            jobField: "ไม่ระบุ",
           },
         },
       },

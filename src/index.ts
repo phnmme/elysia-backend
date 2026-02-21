@@ -9,7 +9,10 @@ import { profileAuthorizedController } from "./api/v1/profile/authorized/profile
 const app = new Elysia()
   .use(
     cors({
-      origin: ["https://website-kmutnb-1n4c.vercel.app"],
+      origin: [
+        "https://website-kmutnb-1n4c.vercel.app",
+        "http://localhost:3000",
+      ],
       methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
       allowedHeaders: ["Content-Type", "Authorization"],
       credentials: true,

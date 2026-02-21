@@ -1,23 +1,26 @@
-# Use official Bun image
-FROM oven/bun:1
-
+# ---------- Builder ----------
+FROM oven/bun:latest AS builder
 WORKDIR /app
 
-# Copy dependency files ก่อน (เพื่อ cache)
-COPY bun.lockb package.json ./
+RUN apt-get update -y && apt-get install -y openssl
 
-# Install dependencies
+COPY package.json bun.lock ./
 RUN bun install --frozen-lockfile
 
-# Copy project files
 COPY . .
 
-# Generate Prisma Client
-RUN bunx prisma generate
+FROM oven/bun:latest AS production
+WORKDIR /app
+
+RUN apt-get update -y && apt-get install -y openssl
+
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./
+COPY --from=builder /app/src ./src
+COPY --from=builder /app/prisma ./prisma
 
 ENV NODE_ENV=production
 
 EXPOSE 4000
 
-# Run app (Elysia entry)
-CMD ["bun", "run", "src/index.ts"]
+CMD ["sh", "-c", "bunx prisma generate && bunx prisma migrate deploy && bun run src/index.ts"]

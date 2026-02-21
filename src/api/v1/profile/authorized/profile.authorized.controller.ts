@@ -26,6 +26,10 @@ export const profileAuthorizedController = new Elysia()
           studentCode: t.Optional(t.String()),
           gradYear: t.Optional(t.Number()),
           jobField: t.Optional(t.String()),
+          continued_from_coop: t.Optional(t.Boolean()),
+          employment_sector: t.Optional(
+            t.Enum({ PRIVATE: "PRIVATE", GOVERNMENT: "GOVERNMENT" })
+          ),
         }),
       }
     );

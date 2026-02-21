@@ -16,46 +16,50 @@ datasource db {
 enum Role {
   USER
   ADMIN
+  OWNER
+}
+
+enum EmploymentSector {
+  PRIVATE
+  GOVERNMENT
 }
 
 model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
   password  String
-  role      Role     @default(USER) // กำหนดค่าเริ่มต้นเป็น USER
+  role      Role     @default(USER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   profile StudentProfile?
-  logs    Log[] // ความสัมพันธ์กับตาราง Log
+  logs    Log[]
 }
 
 model StudentProfile {
-  id          Int     @id @default(autoincrement())
-  studentCode String  @unique
-  firstNameTh String
-  lastNameTh  String
-  phoneNumber String?
-  department  String  @default("การจัดการเทคโนโลยีสารการผลิตและสารสนเทศ")
-  entryYear   Int
-
-  gradYear    Int?
-  jobField    String?
-  jobPosition String?
-
-  userId    Int      @unique
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  updatedAt DateTime @updatedAt
+  id                  Int               @id @default(autoincrement())
+  studentCode         String            @unique
+  firstNameTh         String
+  lastNameTh          String
+  phoneNumber         String?
+  department          String            @default("การจัดการเทคโนโลยีสารการผลิตและสารสนเทศ")
+  entryYear           Int
+  gradYear            Int?
+  jobField            String?
+  continued_from_coop Boolean           @default(false)
+  employment_sector   EmploymentSector?
+  userId              Int               @unique
+  user                User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  updatedAt           DateTime          @updatedAt
 }
 
 // 2. ตาราง Log สำหรับเก็บกิจกรรมในระบบ
 model Log {
   id      Int     @id @default(autoincrement())
-  action  String // เช่น "LOGIN", "REGISTER", "UPDATE_PROFILE", "ADMIN_DELETE_USER"
-  details String? // รายละเอียดเพิ่มเติม (อาจเก็บเป็น JSON string)
-  // ipAddress String? // (Optional) เก็บ IP ของผู้ใช้งาน
+  action  String
+  details String?
 
-  userId Int? // ID ของคนที่ทำกิจกรรม (เป็น null ได้หากเป็นการพยายาม login ที่ไม่สำเร็จ)
+  userId Int?
   user   User? @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   createdAt DateTime @default(now())
