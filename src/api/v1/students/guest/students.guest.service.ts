@@ -111,7 +111,6 @@ export class studentsGuestService {
             role: true,
             createdAt: true,
             updatedAt: true,
-            // ❌ ไม่มี password
           },
         },
       },
