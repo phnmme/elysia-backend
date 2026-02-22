@@ -14,7 +14,7 @@ export class profileAuthorizedService {
     const token = auth.split(" ")[1];
     try {
       const decoded = await jwt.verify(token);
-      console.log("Decoded Token:", decoded);
+      // console.log("Decoded Token:", decoded);
       const user = await prisma.user.findUnique({
         where: { id: decoded.id },
         select: {

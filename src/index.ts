@@ -5,6 +5,7 @@ import { cors } from "@elysiajs/cors";
 import { swagger } from "@elysiajs/swagger";
 import { studentsGuestController } from "./api/v1/students/guest/students.guest.controller";
 import { profileAuthorizedController } from "./api/v1/profile/authorized/profile.authorized.controller";
+import { statisticsGuestController } from "./api/v1/statistics/guest/statistics.guest.controller";
 
 const app = new Elysia()
   .use(
@@ -23,6 +24,7 @@ const app = new Elysia()
   .use(authAuthorizedController)
   .use(studentsGuestController)
   .use(profileAuthorizedController)
+  .use(statisticsGuestController)
   .get("/", () => "Hello Elysia!")
   .listen(4000);
 

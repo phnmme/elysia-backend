@@ -120,7 +120,7 @@ export class studentsGuestService {
       message: "ดึงข้อมูลนักศึกษาปีการศึกษาสำเร็จ",
       data: {
         gradYear: year,
-        total, // จำนวนทั้งหมด
+        total,
         students,
         nextSkip: skip + students.length,
         hasMore: skip + students.length < total,
