@@ -2,28 +2,28 @@
 set /p name=Enter the name: 
 
 REM ===== GUEST =====
-mkdir src\api\v1\%name%\guest
+@REM mkdir src\api\v1\%name%\guest
 
 REM Controller
-echo import { Elysia } from "elysia";  > src\api\v1\%name%\guest\%name%.guest.controller.ts
-echo import { %name%GuestService } from "./%name%.guest.service"; >> src\api\v1\%name%\guest\%name%.guest.controller.ts
-echo. >> src\api\v1\%name%\guest\%name%.guest.controller.ts
-echo const service = new %name%GuestService(); >> src\api\v1\%name%\guest\%name%.guest.controller.ts
-echo. >> src\api\v1\%name%\guest\%name%.guest.controller.ts
-echo export const %name%GuestController = new Elysia().group( >> src\api\v1\%name%\guest\%name%.guest.controller.ts
-echo   "/api/v1/%name%/guest", >> src\api\v1\%name%\guest\%name%.guest.controller.ts
-echo   (app^) => { >> src\api\v1\%name%\guest\%name%.guest.controller.ts
-echo     app.get("/", () => service.getAll()); >> src\api\v1\%name%\guest\%name%.guest.controller.ts
-echo     return app; >> src\api\v1\%name%\guest\%name%.guest.controller.ts
-echo   } >> src\api\v1\%name%\guest\%name%.guest.controller.ts
-echo ); >> src\api\v1\%name%\guest\%name%.guest.controller.ts
+@REM echo import { Elysia } from "elysia";  > src\api\v1\%name%\guest\%name%.guest.controller.ts
+@REM echo import { %name%GuestService } from "./%name%.guest.service"; >> src\api\v1\%name%\guest\%name%.guest.controller.ts
+@REM echo. >> src\api\v1\%name%\guest\%name%.guest.controller.ts
+@REM echo const service = new %name%GuestService(); >> src\api\v1\%name%\guest\%name%.guest.controller.ts
+@REM echo. >> src\api\v1\%name%\guest\%name%.guest.controller.ts
+@REM echo export const %name%GuestController = new Elysia().group( >> src\api\v1\%name%\guest\%name%.guest.controller.ts
+@REM echo   "/api/v1/%name%/guest", >> src\api\v1\%name%\guest\%name%.guest.controller.ts
+@REM echo   (app^) => { >> src\api\v1\%name%\guest\%name%.guest.controller.ts
+@REM echo     app.get("/", () => service.getAll()); >> src\api\v1\%name%\guest\%name%.guest.controller.ts
+@REM echo     return app; >> src\api\v1\%name%\guest\%name%.guest.controller.ts
+@REM echo   } >> src\api\v1\%name%\guest\%name%.guest.controller.ts
+@REM echo ); >> src\api\v1\%name%\guest\%name%.guest.controller.ts
 
-REM Service
-echo export class %name%GuestService { > src\api\v1\%name%\guest\%name%.guest.service.ts
-echo   getAll() { >> src\api\v1\%name%\guest\%name%.guest.service.ts
-echo     return { message: "%name% guest service working!" }; >> src\api\v1\%name%\guest\%name%.guest.service.ts
-echo   } >> src\api\v1\%name%\guest\%name%.guest.service.ts
-echo } >> src\api\v1\%name%\guest\%name%.guest.service.ts
+@REM REM Service
+@REM echo export class %name%GuestService { > src\api\v1\%name%\guest\%name%.guest.service.ts
+@REM echo   getAll() { >> src\api\v1\%name%\guest\%name%.guest.service.ts
+@REM echo     return { message: "%name% guest service working!" }; >> src\api\v1\%name%\guest\%name%.guest.service.ts
+@REM echo   } >> src\api\v1\%name%\guest\%name%.guest.service.ts
+@REM echo } >> src\api\v1\%name%\guest\%name%.guest.service.ts
 
 REM ===== AUTHORIZED =====
 mkdir src\api\v1\%name%\authorized

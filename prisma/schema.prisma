@@ -32,8 +32,9 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  profile StudentProfile?
-  logs    Log[]
+  profile       StudentProfile?
+  logs          Log[]
+  careerReviews CareerReview[]
 }
 
 model StudentProfile {
@@ -53,7 +54,6 @@ model StudentProfile {
   updatedAt           DateTime          @updatedAt
 }
 
-// 2. ตาราง Log สำหรับเก็บกิจกรรมในระบบ
 model Log {
   id      Int     @id @default(autoincrement())
   action  String
@@ -69,4 +69,20 @@ model JwtBlacklist {
   id        Int      @id @default(autoincrement())
   token     String   @unique
   createdAt DateTime @default(now())
+}
+
+model CareerReview {
+  id          Int     @id @default(autoincrement())
+  title       String
+  description String
+  jobField    String?
+  status      String  @default("pending")
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
 }

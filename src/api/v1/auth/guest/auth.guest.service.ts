@@ -41,6 +41,7 @@ export class AuthGuestService {
       id: user.id,
       email: user.email,
       name: user.profile?.firstNameTh + " " + user.profile?.lastNameTh,
+      role: user.role,
       exp: "1h",
     });
 
@@ -48,6 +49,7 @@ export class AuthGuestService {
       data: {
         action: "LOGIN",
         details: `ผู้ใช้ ${email} เข้าสู่ระบบสำเร็จ`,
+        userId: user.id,
       },
     });
 
@@ -133,6 +135,7 @@ export class AuthGuestService {
       data: {
         action: "REGISTER",
         details: `ผู้ใช้ ${email} สมัครสมาชิกสำเร็จ`,
+        userId: user.id,
       },
     });
     return {

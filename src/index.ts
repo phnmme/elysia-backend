@@ -6,6 +6,10 @@ import { swagger } from "@elysiajs/swagger";
 import { studentsGuestController } from "./api/v1/students/guest/students.guest.controller";
 import { profileAuthorizedController } from "./api/v1/profile/authorized/profile.authorized.controller";
 import { statisticsGuestController } from "./api/v1/statistics/guest/statistics.guest.controller";
+import { adminController } from "./api/v1/admin/authorized/admin.authorized.controller";
+import { logController } from "./api/v1/logs/authorized/logs.authorized.controller";
+import { reviewController } from "./api/v1/reviews/authorized/reviews.authorized.controller";
+import { userController } from "./api/v1/users/authorized/users.authorized.controller";
 
 const app = new Elysia()
   .use(
@@ -25,7 +29,10 @@ const app = new Elysia()
   .use(studentsGuestController)
   .use(profileAuthorizedController)
   .use(statisticsGuestController)
-  .get("/", () => "Hello Elysia!")
+  .use(adminController)
+  .use(logController)
+  .use(reviewController)
+  .use(userController)
   .listen(4000);
 
 console.log(

@@ -1,3 +1,5 @@
+//src\api\v1\auth\authorized\auth.authorized.service.ts
+
 import { Context } from "elysia";
 import { PrismaClient } from "@prisma/client";
 
@@ -12,15 +14,23 @@ export class authAuthorizedService {
         message: "ไม่มีสิทธิ์เข้าถึง",
       };
     }
+
     const token = auth.split(" ")[1];
     try {
       const decoded = await jwt.verify(token);
+      if (!decoded || typeof decoded === "string") {
+        set.status = 401;
+        return {
+          message: "โทเค็นไม่ถูกต้อง",
+        };
+      }
       return {
         message: "ข้อมูลผู้ใช้",
         data: {
           id: decoded.id,
           email: decoded.email,
           name: decoded.name,
+          role: decoded.role,
         },
       };
     } catch (error) {
@@ -54,6 +64,7 @@ export class authAuthorizedService {
         id: number;
         email: string;
         name: string;
+        role: string;
       };
 
       const user = await prisma.user.findUnique({
@@ -65,7 +76,7 @@ export class authAuthorizedService {
         return { message: "ผู้ใช้ไม่ถูกต้อง", page };
       }
 
-      if (page === "admin" && user.role !== "ADMIN") {
+      if (page === "admin" && !["ADMIN", "OWNER"].includes(user.role)) {
         set.status = 403;
         return { message: "ไม่มีสิทธิ์เข้าถึงหน้าผู้ดูแลระบบ" };
       }
